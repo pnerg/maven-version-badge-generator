@@ -16,6 +16,8 @@
 
 package org.dmonix.maven;
 
+import java.io.IOException;
+
 /**
  * Interface for the service to find the version of the Maven artifact. <br>
  * The actual implementation may vary, e.g. Nexus or Artifactory.
@@ -32,7 +34,9 @@ public interface MavenVersionFetcher {
      * @param artifactId
      *            The Maven artifact id (e.g. maven-version-badge-generator)
      * @return
+     * @throws NoSuchArtifactException
+     * @throws IOException
      */
-    String getLatestVersion(String groupId, String artifactId);
+    String getLatestVersion(String groupId, String artifactId) throws NoSuchArtifactException, IOException;
 
 }
