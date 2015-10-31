@@ -1,0 +1,1 @@
+# maven-version-badge-generator
