@@ -27,6 +27,8 @@ import java.net.URL;
 import org.dmonix.maven.NoSuchArtifactException;
 
 /**
+ * Uitility for fetching version information from Nexus. <br>
+ * The class will use the REST API provided by Nexus.
  * 
  * @author Peter Nerg
  *
@@ -45,25 +47,57 @@ public class NexusVersionFetcher {
         this.url = url;
     }
 
+    /**
+     * The root URL to the Nexus server.
+     * 
+     * @param url
+     * @return
+     */
     public static NexusVersionFetcher forURL(String url) {
         return new NexusVersionFetcher(url);
     }
 
+    /**
+     * The repository in Nexus to find the artifact.
+     * 
+     * @param repository
+     * @return
+     */
     public NexusVersionFetcher withRepository(String repository) {
         this.repository = repository;
         return this;
     }
 
+    /**
+     * The group id for the artifact.
+     * 
+     * @param groupId
+     * @return
+     */
     public NexusVersionFetcher withGroupID(String groupId) {
         this.groupId = groupId;
         return this;
     }
 
+    /**
+     * The artifact id for the artifact.
+     * 
+     * @param artifactId
+     * @return
+     */
     public NexusVersionFetcher withArtifactID(String artifactId) {
         this.artifactId = artifactId;
         return this;
     }
 
+    /**
+     * Gets the latest version of the requested artifact.
+     * 
+     * @return
+     * @throws IOException
+     * @throws NoSuchArtifactException
+     *             In case no such artifact exists
+     */
     public String getLatestVersion() throws IOException, NoSuchArtifactException {
         // build the request URL
         StringBuilder sb = new StringBuilder();
@@ -100,7 +134,24 @@ public class NexusVersionFetcher {
         return result.toString();
     }
 
+    
     private static String getVersionFromResult(String result) {
+        //example of result/response from Nexus
+//        <artifact-resolution>
+//            <data>
+//                <presentLocally>true</presentLocally>
+//                <groupId>org.dmonix</groupId> 
+//                <artifactId>something</artifactId>
+//                <version>1.2</version>
+//                <extension>jar</extension>
+//                <snapshot>false</snapshot>
+//                <snapshotBuildNumber>0</snapshotBuildNumber>
+//                <snapshotTimeStamp>0</snapshotTimeStamp>
+//                <sha1>6a1ffb41309ff2feb47613942acc02061d35b67e</sha1>
+//            <repositoryPath>/org/dmonix/something/1.2/something-1.2.jar</repositoryPath>
+//            </data>
+//        </artifact-resolution>
+        
         String startTag = "<version>";
         int versionStart = result.indexOf(startTag) + startTag.length();
         int versionEnd = result.indexOf("</version>");
