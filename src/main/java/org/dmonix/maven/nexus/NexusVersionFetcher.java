@@ -37,7 +37,6 @@ public class NexusVersionFetcher {
     private String repository = "NOT-SET";
     private String groupId = "NOT-SET";
     private String artifactId = "NOT-SET";
-    private String version = "LATEST";
 
     /**
      * Inhibitive constructor.
@@ -65,19 +64,14 @@ public class NexusVersionFetcher {
         return this;
     }
 
-    public NexusVersionFetcher withVersion(String version) {
-        this.version = version;
-        return this;
-    }
-
-    public String getVersion() throws IOException, NoSuchArtifactException {
+    public String getLatestVersion() throws IOException, NoSuchArtifactException {
         // build the request URL
         StringBuilder sb = new StringBuilder();
         sb.append(url);
         sb.append("/service/local/artifact/maven/resolve?r=").append(repository);
         sb.append("&g=").append(groupId);
         sb.append("&a=").append(artifactId);
-        sb.append("&v=").append(version);
+        sb.append("&v=LATEST");
 
         URL url = new URL(sb.toString());
 
