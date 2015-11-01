@@ -27,9 +27,9 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 
 /**
+ * Utility for generating images out of provided strings.
  * 
  * @author Peter Nerg
- *
  */
 public class ImageGenerator {
 
@@ -38,29 +38,66 @@ public class ImageGenerator {
     private String font = "Arial";
     private String format = "PNG";
 
+    /**
+     * Inhibitive constructor.
+     * 
+     * @param text
+     */
     private ImageGenerator(String text) {
         this.text = text;
     }
 
+    /**
+     * Creates the generator for the provided text.
+     * 
+     * @param text
+     * @return
+     */
     public static ImageGenerator forText(String text) {
         return new ImageGenerator(text);
     }
 
+    /**
+     * Sets the font size for the output Optional, default is <tt>14</tt>
+     * 
+     * @param size
+     * @return
+     */
     public ImageGenerator withFontSize(int size) {
         this.size = size;
         return this;
     }
 
+    /**
+     * Sets the font type for the output.<br>
+     * Optional, default is <tt>Arial</tt>
+     * 
+     * @param font
+     * @return
+     */
     public ImageGenerator withFont(String font) {
         this.font = font;
         return this;
     }
 
+    /**
+     * Sets the output format of the image.<br>
+     * Optional, default is <tt>png</tt>
+     * 
+     * @param format
+     * @return
+     */
     public ImageGenerator withFormat(String format) {
         this.format = format;
         return this;
     }
 
+    /**
+     * Creates the image to the provided output stream
+     * 
+     * @param ostream
+     * @throws IOException
+     */
     public void createImage(OutputStream ostream) throws IOException {
         /*
          * Because font metrics is based on a graphics context, we need to create a small, temporary image so we can ascertain the width and height of the final
