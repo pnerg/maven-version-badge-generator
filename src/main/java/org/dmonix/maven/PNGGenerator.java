@@ -21,7 +21,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -37,6 +36,7 @@ public class PNGGenerator {
     private final String text;
     private int size = 14;
     private String font = "Arial";
+    private String format = "PNG";
 
     private PNGGenerator(String text) {
         this.text = text;
@@ -53,6 +53,11 @@ public class PNGGenerator {
 
     public PNGGenerator withFont(String font) {
         this.font = font;
+        return this;
+    }
+
+    public PNGGenerator withFormat(String format) {
+        this.format = format;
         return this;
     }
 
@@ -85,11 +90,7 @@ public class PNGGenerator {
         g2d.setColor(Color.BLACK);
         g2d.drawString(text, 0, fm.getAscent());
         g2d.dispose();
-        ImageIO.write(img, "png", ostream);
-    }
-
-    public static void main(String[] args) throws IOException {
-        PNGGenerator.forText("1.2.1").createImage(new FileOutputStream("target/image.png"));
+        ImageIO.write(img, format, ostream);
     }
 
 }
