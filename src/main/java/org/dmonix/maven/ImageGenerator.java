@@ -31,32 +31,32 @@ import javax.imageio.ImageIO;
  * @author Peter Nerg
  *
  */
-public class PNGGenerator {
+public class ImageGenerator {
 
     private final String text;
     private int size = 14;
     private String font = "Arial";
     private String format = "PNG";
 
-    private PNGGenerator(String text) {
+    private ImageGenerator(String text) {
         this.text = text;
     }
 
-    public static PNGGenerator forText(String text) {
-        return new PNGGenerator(text);
+    public static ImageGenerator forText(String text) {
+        return new ImageGenerator(text);
     }
 
-    public PNGGenerator withFontSize(int size) {
+    public ImageGenerator withFontSize(int size) {
         this.size = size;
         return this;
     }
 
-    public PNGGenerator withFont(String font) {
+    public ImageGenerator withFont(String font) {
         this.font = font;
         return this;
     }
 
-    public PNGGenerator withFormat(String format) {
+    public ImageGenerator withFormat(String format) {
         this.format = format;
         return this;
     }

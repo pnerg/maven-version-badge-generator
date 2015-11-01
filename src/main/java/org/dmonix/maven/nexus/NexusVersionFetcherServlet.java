@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dmonix.maven.NoSuchArtifactException;
-import org.dmonix.maven.PNGGenerator;
+import org.dmonix.maven.ImageGenerator;
 
 /**
  * 
@@ -77,7 +77,7 @@ public class NexusVersionFetcherServlet extends HttpServlet {
         }
 
         resp.setContentType("image/" + imageFormat);
-        PNGGenerator.forText(latestVersion).withFont(fontType).withFontSize(fontSize).createImage(resp.getOutputStream());
+        ImageGenerator.forText(latestVersion).withFont(fontType).withFontSize(fontSize).createImage(resp.getOutputStream());
     }
 
     private static String getInitParameter(ServletConfig config, String name, String defaultVal) {
