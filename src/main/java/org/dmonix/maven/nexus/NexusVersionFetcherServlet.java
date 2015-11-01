@@ -23,10 +23,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.dmonix.maven.NoSuchArtifactException;
 import org.dmonix.maven.ImageGenerator;
+import org.dmonix.maven.NoSuchArtifactException;
 
 /**
+ * The servlet for fetching version information from Nexus and render an image as response.
  * 
  * @author Peter Nerg
  *
