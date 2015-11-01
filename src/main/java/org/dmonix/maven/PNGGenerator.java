@@ -46,7 +46,7 @@ public class PNGGenerator {
         return new PNGGenerator(text);
     }
 
-    public PNGGenerator withSize(int size) {
+    public PNGGenerator withFontSize(int size) {
         this.size = size;
         return this;
     }
