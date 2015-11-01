@@ -100,14 +100,7 @@ public class NexusVersionFetcher {
      */
     public String getLatestVersion() throws IOException, NoSuchArtifactException {
         // build the request URL
-        StringBuilder sb = new StringBuilder();
-        sb.append(url);
-        sb.append("/service/local/artifact/maven/resolve?r=").append(repository);
-        sb.append("&g=").append(groupId);
-        sb.append("&a=").append(artifactId);
-        sb.append("&v=LATEST");
-
-        URL url = new URL(sb.toString());
+        URL url = new URL(getRequestURL());
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -126,6 +119,27 @@ public class NexusVersionFetcher {
         }
     }
 
+    /**
+     * Get the request URL to the REST API of Nexus.
+     * @return
+     */
+    private String getRequestURL() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(url);
+        sb.append("/service/local/artifact/maven/resolve?r=").append(repository);
+        sb.append("&g=").append(groupId);
+        sb.append("&a=").append(artifactId);
+        sb.append("&v=LATEST");
+
+        return sb.toString();
+    }
+    
+    /**
+     * @param istream
+     * @param bytes
+     * @return
+     * @throws IOException
+     */
     private static String readStringFromStream(InputStream istream, int bytes) throws IOException {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < bytes; i++) {
@@ -159,4 +173,11 @@ public class NexusVersionFetcher {
         return result.substring(versionStart, versionEnd);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getRequestURL();
+    }
 }
